@@ -3,7 +3,7 @@ from tkinter import messagebox
 
 # Simulated inventory data
 inventory = {
-    "Apples": 50,
+    "Apples": 55,
     "Bananas": 75,
     "Oranges": 100,
     "Milk": 30,
