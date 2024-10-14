@@ -1,0 +1,47 @@
+import tkinter as tk
+from tkinter import messagebox
+
+# Sample initial inventory data
+inventory = {"Apples": 50, "Bananas": 75, "Oranges": 100}
+
+# Function to perform stocktake (inventory count)
+def stocktake():
+    item = entry_item.get()
+    actual_qty = entry_quantity.get()
+    
+    if item in inventory and actual_qty.isdigit():
+        actual_qty = int(actual_qty)
+        inventory[item] = actual_qty
+        messagebox.showinfo("Stocktake", f"Inventory updated: {item} now has {actual_qty} units.")
+    else:
+        messagebox.showerror("Error", "Item not found or invalid quantity!")
+
+# Function to display current inventory
+def show_inventory():
+    inventory_window = tk.Toplevel(window)
+    inventory_window.title("Inventory List")
+    text_inventory = tk.Text(inventory_window, height=10, width=30)
+    text_inventory.pack()
+    for item, qty in inventory.items():
+        text_inventory.insert(tk.END, f"{item}: {qty} units\n")
+
+# Create main window
+window = tk.Tk()
+window.title("Stocktake System")
+window.geometry("300x250")
+
+# Labels and input fields
+tk.Label(window, text="Item:").pack(pady=5)
+entry_item = tk.Entry(window)
+entry_item.pack()
+
+tk.Label(window, text="Actual Quantity:").pack(pady=5)
+entry_quantity = tk.Entry(window)
+entry_quantity.pack()
+
+# Buttons for stocktake and viewing inventory
+tk.Button(window, text="Update Stock", command=stocktake).pack(pady=5)
+tk.Button(window, text="View Inventory", command=show_inventory).pack(pady=5)
+
+# Start the application
+window.mainloop()
