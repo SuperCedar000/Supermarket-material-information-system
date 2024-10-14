@@ -7,7 +7,7 @@ window.title("超市物资信息管理系统 - 登录")
 window.geometry("300x200")
 
 # 账号和密码的正确值
-correct_username = "SLi000999"
+correct_username = "SLi00000999"
 correct_password = "123123"
 
 # 定义登录函数
