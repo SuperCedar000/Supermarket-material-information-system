@@ -1,0 +1,37 @@
+import tkinter as tk
+from tkinter import messagebox
+
+# Sample initial inventory data with a minimum stock threshold
+inventory = {"Apples": 50, "Bananas": 5, "Oranges": 100}
+thresholds = {"Apples": 10, "Bananas": 10, "Oranges": 20}  # Minimum stock levels
+
+# Function to check stock levels and notify if below threshold
+def check_stock_levels():
+    low_stock_items = [item for item, qty in inventory.items() if qty < thresholds[item]]
+    
+    if low_stock_items:
+        low_stock_list = "\n".join(low_stock_items)
+        messagebox.showwarning("Low Stock Alert", f"The following items are low in stock:\n{low_stock_list}")
+    else:
+        messagebox.showinfo("Stock Levels", "All items are sufficiently stocked.")
+
+# Function to display current inventory
+def show_inventory():
+    inventory_window = tk.Toplevel(window)
+    inventory_window.title("Inventory List")
+    text_inventory = tk.Text(inventory_window, height=10, width=30)
+    text_inventory.pack()
+    for item, qty in inventory.items():
+        text_inventory.insert(tk.END, f"{item}: {qty} units\n")
+
+# Create main window
+window = tk.Tk()
+window.title("Inventory Notification System")
+window.geometry("300x250")
+
+# Buttons for checking stock levels and viewing inventory
+tk.Button(window, text="Check Stock Levels", command=check_stock_levels).pack(pady=10)
+tk.Button(window, text="View Inventory", command=show_inventory).pack(pady=10)
+
+# Start the application
+window.mainloop()
