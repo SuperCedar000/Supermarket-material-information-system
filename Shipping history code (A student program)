@@ -1,0 +1,54 @@
+import tkinter as tk
+from tkinter import messagebox
+
+# Initial inventory data
+inventory = {"Apples": 50, "Bananas": 75, "Oranges": 100}
+
+# Create main window
+window = tk.Tk()
+window.title("Inventory Management System")
+window.geometry("300x250")
+
+# Function to register incoming goods
+def register_incoming():
+    item, qty = entry_item.get(), entry_quantity.get()
+    if item and qty.isdigit():
+        inventory[item] = inventory.get(item, 0) + int(qty)
+        messagebox.showinfo("Success", f"{qty} units of {item} added.")
+    else:
+        messagebox.showerror("Error", "Invalid input!")
+
+# Function to register outgoing goods
+def register_outgoing():
+    item, qty = entry_item.get(), entry_quantity.get()
+    if item in inventory and qty.isdigit() and inventory[item] >= int(qty):
+        inventory[item] -= int(qty)
+        messagebox.showinfo("Success", f"{qty} units of {item} removed.")
+    else:
+        messagebox.showerror("Error", "Invalid item or insufficient stock!")
+
+# Function to display current inventory
+def show_inventory():
+    inventory_window = tk.Toplevel(window)
+    inventory_window.title("Inventory List")
+    text_inventory = tk.Text(inventory_window, height=10, width=30)
+    text_inventory.pack()
+    for item, qty in inventory.items():
+        text_inventory.insert(tk.END, f"{item}: {qty} units\n")
+
+# Labels and input fields
+tk.Label(window, text="Item:").pack(pady=5)
+entry_item = tk.Entry(window)
+entry_item.pack()
+
+tk.Label(window, text="Quantity:").pack(pady=5)
+entry_quantity = tk.Entry(window)
+entry_quantity.pack()
+
+# Buttons
+tk.Button(window, text="Register Incoming", command=register_incoming).pack(pady=5)
+tk.Button(window, text="Register Outgoing", command=register_outgoing).pack(pady=5)
+tk.Button(window, text="View Inventory", command=show_inventory).pack(pady=5)
+
+# Start main loop
+window.mainloop()
