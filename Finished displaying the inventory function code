@@ -1,0 +1,42 @@
+import tkinter as tk
+from tkinter import messagebox
+
+# Simulated inventory data
+inventory = {
+    "Apples": 50,
+    "Bananas": 75,
+    "Oranges": 100,
+    "Milk": 30,
+    "Eggs": 200,
+}
+
+# Create the main window
+window = tk.Tk()
+window.title("Supermarket Inventory Management System")
+window.geometry("300x200")
+
+# Define a function to display the current inventory list
+def show_inventory():
+    inventory_window = tk.Toplevel(window)  # Create a new window for inventory
+    inventory_window.title("Current Inventory")
+    inventory_window.geometry("300x300")
+    
+    label_title = tk.Label(inventory_window, text="Inventory List", font=("Arial", 14))
+    label_title.pack(pady=10)
+    
+    # Create a text widget to display the inventory list
+    inventory_list = tk.Text(inventory_window, height=10, width=40)
+    inventory_list.pack(pady=10)
+    
+    # Insert inventory data into the text widget
+    for item, quantity in inventory.items():
+        inventory_list.insert(tk.END, f"{item}: {quantity} units\n")
+    
+    inventory_list.config(state=tk.DISABLED)  # Make the text widget read-only
+
+# Create a button to view inventory
+btn_view_inventory = tk.Button(window, text="View Inventory", command=show_inventory)
+btn_view_inventory.pack(pady=20)
+
+# Start the main loop
+window.mainloop()
